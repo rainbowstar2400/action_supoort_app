@@ -1,0 +1,170 @@
+:root {
+  --main-color: #4CAF50;
+  --font-color: #000000; /* 初期フォント色 */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  text-align: center;
+  background-color: #ffffff;
+  color: var(--font-color);
+}
+
+button {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.8em 1.2em;
+  font-size: 1em;
+  margin: 0.6em auto;
+  display: block;
+  width: 70%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+#tab-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #444;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  padding-top: 0.3em;
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.tab-label {
+  font-size: 0.85em;
+  margin-top: 0.1em;
+  transition: font-size 0.2s ease, color 0.2s ease, font-weight 0.2s ease;
+}
+
+.tab.active {
+  color: #007BFF;
+}
+
+.tab.active .tab-icon {
+  transform: scale(1.3);
+}
+
+.tab.active .tab-label {
+  font-size: 0.95em;
+  font-weight: bold;
+  color: #007BFF;
+}
+
+.accordion-section {
+  margin: 1em auto;
+  width: 90%;
+  max-width: 500px;
+}
+
+.accordion-toggle {
+  width: 100%;
+  text-align: left;
+  background-color: var(--main-color); /* ← 変更 */
+  color: #fff; /* ← 白文字 */
+  border: none;
+  padding: 1em;
+  font-size: 1.1em;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.accordion-toggle .arrow {
+  font-size: 1.2em;
+  transition: transform 0.3s ease;
+}
+
+.accordion-toggle:hover {
+  background: #f5f5f5;
+}
+
+.accordion-content {
+  background: #fafafa;
+  padding: 1em 2em; /* ← 横にゆとりを追加 */
+  margin-top: 0.5em;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  text-align: left; /* ← 左揃えに変更 */
+}
+
+.accordion-toggle .arrow {
+  font-size: 1.2em;
+  transition: transform 0.3s ease;
+}
+
+#image-modal {
+  cursor: pointer;
+}
+
+.mood-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0.5em 0;
+}
+
+.preview-button {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.3em 0.6em;
+  font-size: 0.9em;
+  margin-left: 0.5em;
+  width: auto;               /* ← 幅は内容に応じて */
+  min-width: 2em;            /* ← 必要ならボタンサイズ固定化 */
+  max-width: 4.5em;          /* ← 幅広くなりすぎないよう制限 */
+  text-align: center;
+  white-space: nowrap;       /* ← 折り返さない */
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  transition: transform 0.1s ease;
+}
+
+
+.preview-button:active {
+  transform: scale(0.95);
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>行動サポートアプリ</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- PWA設定 -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4CAF50">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+
+</head>
+
+<body>
+  <!-- ホーム画面 -->
+  <div id="home-screen">
+    <h2>行動リスト</h2>
+    <h4>行動を選択してください</h4>
+    <button onclick="playBGM('kitaku', '帰宅')">帰宅した</button>
+    <button onclick="playBGM('shokuji', '食事後')">食事を終えた</button>
+    <button onclick="playBGM('kadai', '課題後')">課題を終えた</button>
+    <button onclick="playBGM('nyuyoku', '入浴前')">お風呂に入る</button>
+    <button onclick="playBGM('neru', '寝る')">寝る</button>
+
+    <br>
+
+    <h2 id="now-playing"></h2>
+    <p id="elapsed-time"></p>
+
+    <div id="controls" style="display:none;">
+      <button onclick="togglePause()">⏸ 一時停止</button>
+      <button onclick="completeAction()">✅ 完了</button>
+    </div>
+
+    <h3 id="message"></h3>
+  </div>
+
+  <!-- メニュー画面 -->
+  <div id="menu-screen" style="display: none;">
+
+    <h2>各種設定</h2>
+
+        <!-- 使い方ガイドトグル -->
+    <div class="accordion-section">
+      <button class="accordion-toggle" onclick="toggleSection('usage-guide', this)">
+        使い方
+        <span class="arrow">▶</span>
+      </button>
+      <div id="usage-guide" class="accordion-content" style="display: none;">
+        <p>このアプリでは、生活の中の区切りごとにボタンを押すことでBGMが再生され、次の行動への移行を後押しします。</p>
+        <p>操作は以下の通りです：</p>
+        <ul style="text-align:left;">
+          <li>行動を選択 → BGM再生開始</li>
+          <li>⏸ 一時停止 → 音を止めたいとき</li>
+          <li>✅ 完了 → 音を止め、メッセージが表示されます</li>
+        </ul>
+        <button onclick="showImageModal()">操作説明(画像)</button>
+      </div>
+    </div>
+
+    <!-- 操作画像モーダル -->
+    <div id="image-modal"
+      style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:9999;"
+      onclick="hideImageModal()">
+      <img src="assets/guide.png" alt="操作説明" style="max-width:90%; max-height:90%; border-radius: 12px;" />
+    </div>
+
+
+    <!-- 行動ごとの気分設定 -->
+    <div class="accordion-section">
+      <button class="accordion-toggle" onclick="toggleSection('mood-settings', this)">
+        行動ごとの気分設定
+        <span class="arrow">▶</span>
+      </button>
+      <div id="mood-settings" class="accordion-content" style="display: none;">
+        <!-- 帰宅した -->
+        <div class="mood-row">
+          <label>　　帰宅した：</label>
+          <select onchange="setMoodForAction('kitaku', this.value)" id="select-kitaku">
+            <option value="kitaku_1">落ち着きたい</option>
+            <option value="kitaku_2">元気を出したい</option>
+            <option value="kitaku_3">集中したい</option>
+          </select>
+          <button class="preview-button" onclick="previewBGM('select-kitaku')">▶試聴</button>
+        </div>
+
+        <!-- 食事を終えた -->
+        <div class="mood-row">
+          <label>食事を終えた：</label>
+          <select onchange="setMoodForAction('shokuji', this.value)" id="select-shokuji">
+            <option value="shokuji_1">落ち着きたい</option>
+            <option value="shokuji_2">元気を出したい</option>
+            <option value="shokuji_3">集中したい</option>
+          </select>
+          <button class="preview-button" onclick="previewBGM('select-shokuji')">▶試聴</button>
+        </div>
+
+        <!-- 課題を終えた -->
+        <div class="mood-row">
+          <label>課題を終えた：</label>
+          <select onchange="setMoodForAction('kadai', this.value)" id="select-kadai">
+            <option value="kadai_1">落ち着きたい</option>
+            <option value="kadai_2">元気を出したい</option>
+            <option value="kadai_3">集中したい</option>
+          </select>
+          <button class="preview-button" onclick="previewBGM('select-kadai')">▶試聴</button>
+        </div>
+
+        <!-- お風呂に入る -->
+        <div class="mood-row">
+          <label>お風呂に入る：</label>
+          <select onchange="setMoodForAction('nyuyoku', this.value)" id="select-nyuyoku">
+            <option value="nyuyoku_1">落ち着きたい</option>
+            <option value="nyuyoku_2">元気を出したい</option>
+            <option value="nyuyoku_3">集中したい</option>
+          </select>
+          <button class="preview-button" onclick="previewBGM('select-nyuyoku')">▶試聴</button>
+        </div>
+
+        <!-- 寝る -->
+        <div class="mood-row">
+          <label>　　　　寝る：</label>
+          <select onchange="setMoodForAction('neru', this.value)" id="select-neru">
+            <option value="neru_1">落ち着きたい</option>
+            <option value="neru_2">元気を出したい</option>
+            <option value="neru_3">集中したい</option>
+          </select>
+          <button class="preview-button" onclick="previewBGM('select-neru')">▶試聴</button>
+        </div>
+
+        <!--初期設定にリセット-->
+        <button onclick="resetMoodSettings()" class="long-button">初期設定にリセット</button>
+
+
+      </div>
+    </div>
+
+
+    <!-- カラー設定トグル -->
+    <div class="accordion-section">
+      <button class="accordion-toggle" onclick="toggleSection('color-settings', this)">
+        カラー設定
+        <span class="arrow">▶</span>
+      </button>
+      <div id="color-settings" class="accordion-content" style="display: none;">
+
+        <h4>テーマカラーの設定</h4>
+        <label>プリセットから選ぶ：</label>
+        <select id="preset-color" onchange="setThemeFromPreset(this.value)">
+          <option value="#4CAF50">グリーン（初期）</option>
+          <option value="#2196F3">ブルー</option>
+          <option value="#FF9800">オレンジ</option>
+          <option value="#E91E63">ピンク</option>
+          <option value="#9C27B0">パープル</option>
+        </select>
+        <br><br>
+        <label>カラーコードを入力：</label>
+        <input type="text" id="custom-color" placeholder="#FF6600" oninput="setThemeFromInput(this.value)" />
+
+        <br><br>
+
+        <h4>フォントカラーの設定</h4>
+        <label>プリセットから選ぶ：</label>
+        <select id="preset-font-color" onchange="setFontFromPreset(this.value)">
+          <option value="#000000">黒（初期）</option>
+          <option value="#333333">ダークグレー</option>
+          <option value="#666666">グレー</option>
+          <option value="#FFFFFF">白（背景が暗い場合）</option>
+          <option value="#007BFF">青</option>
+        </select>
+        <br><br>
+        <label>カラーコードを入力：</label>
+        <input type="text" id="custom-font-color" placeholder="#333333" oninput="setFontFromInput(this.value)" />
+      </div>
+    </div>
+
+    <!-- クレジット トグル式 -->
+    <div class="accordion-section">
+      <button class="accordion-toggle" onclick="toggleSection('credit-section', this)">
+        クレジット
+        <span class="arrow">▶</span>
+      </button>
+      <div id="credit-section" class="accordion-content" style="display: none;">
+        <p><strong>開発者：</strong>優</p>
+        <p><strong>BGM提供：</strong>DOVA-SYNDROME <a href="https://dova-s.jp/">(URL)</a>、騒音のない世界 <a
+            href="https://noiselessworld.net/">(URL)</a></p>
+        <p><strong>アイコン：</strong>icon-mono <a href="https://icooon-mono.com/">(URL)</a></p>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- タブバー -->
+  <div id="tab-bar">
+    <div class="tab" onclick="showScreen('home')" id="tab-home">
+      <!-- icon-home.svg をインラインで貼り付け -->
+      <svg class="tab-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      </svg>
+      <div class="tab-label">ホーム</div>
+    </div>
+    <div class="tab" onclick="showScreen('menu')" id="tab-menu">
+      <!-- icon-menu.svg をインラインで貼り付け -->
+      <svg class="tab-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
+      </svg>
+      <div class="tab-label">メニュー</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
