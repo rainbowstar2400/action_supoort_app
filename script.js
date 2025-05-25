@@ -146,6 +146,12 @@ function applyThemeColor(color) {
   if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
     document.documentElement.style.setProperty('--main-color', color);
     localStorage.setItem('theme-color', color);
+
+    // ステータスバーカラーにも反映
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) {
+      themeMeta.setAttribute("content", color);
+    }
   }
 }
 
