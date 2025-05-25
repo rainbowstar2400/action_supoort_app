@@ -20,7 +20,7 @@
 
 ## 使い方
 
-1. [アプリを開く](https://rainbowstar2400.github.io/action_support_app/)
+1. [アプリを開く](https://rainbowstar2400.github.io/action_suport_app/)
 2. 行動を選ぶと、対応するBGMが再生されます
 3. 「⏸ 一時停止」を押すと一時的に再生を停止できます  
    ※経過時間のカウントや表示は止まらず進みます
