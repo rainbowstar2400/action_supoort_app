@@ -152,7 +152,7 @@ button:active {
 }
 
 .mood-row select {
-  width: 200px;
+  width: 100px;
   font-size: 1em;
   box-sizing: border-box;
 }
