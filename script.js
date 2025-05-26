@@ -5,7 +5,20 @@ let elapsedTime = 0;
 let timerInterval = null;
 let bellPlayed = false;
 
-window.addEventListener('DOMContentLoaded', () => {
+let bgmData = [];
+
+async function loadBGMData() {
+  try {
+    const res = await fetch('bgm_data.json');
+    bgmData = await res.json();
+  } catch (e) {
+    console.error("BGMデータの読み込みに失敗しました:", e);
+  }
+}
+
+
+window.addEventListener('DOMContentLoaded', async () => {
+  await loadBGMData(); // ← 追加
   const savedColor = localStorage.getItem('theme-color');
   if (savedColor) {
     applyThemeColor(savedColor);
@@ -61,9 +74,18 @@ function playBGM(name, label) {
   };
 
   // 気分セレクトから現在のvalueを取得（例："kitaku_2"）
-  const moodKey = document.getElementById(moodMap[name]).value;
+  const moodSelect = document.getElementById(moodMap[name]);
+  const moodLabel = moodSelect.options[moodSelect.selectedIndex].text;
 
-  currentAudio = new Audio(`assets/${moodKey}.mp3`);
+  const bgmEntry = bgmData.find(item => item["行動名"] === label && item["気分名"] === moodLabel);
+  if (!bgmEntry) {
+    alert("該当するBGMが見つかりません");
+    return;
+  }
+  
+  const fileName = bgmEntry["ファイル名"];
+  currentAudio = new Audio(`assets/${fileName}`);
+
   currentAudio.loop = true;
   currentAudio.play();
 
