@@ -95,6 +95,17 @@ function populateMoodOptions() {
 }
 
 function playBGM(name, label) {
+  
+  // 試聴が再生中なら停止
+  if (previewAudio) {
+    previewAudio.pause();
+    previewAudio = null;
+    previewingId = null;
+
+    // クレジット表示をクリア
+    document.getElementById("preview-credit").innerHTML = "";
+  }
+
   if (currentAudio) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
@@ -292,6 +303,21 @@ let previewAudio = null;
 let previewingId = null;
 
 function previewBGM(selectId) {
+  // BGMが再生中なら停止
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
+
+    // 表示もリセット（必要に応じて）
+    document.getElementById("now-playing").textContent = "";
+    document.getElementById("elapsed-time").textContent = "";
+    document.getElementById("controls").style.display = "none";
+    document.getElementById("message").textContent = "";
+    document.getElementById("bgm-credit").innerHTML = "";
+    clearInterval(timerInterval);
+  }
+
   const selectedValue = document.getElementById(selectId).value;
   const previewFile = `assets/${selectedValue}.mp3`;
 
