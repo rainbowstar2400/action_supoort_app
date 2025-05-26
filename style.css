@@ -180,7 +180,11 @@ button:active {
   transition: transform 0.1s ease;
 }
 
-
 .preview-button:active {
   transform: scale(0.95);
+}
+
+#menu-screen {
+  max-height: calc(100vh - 60px); /* タブバーの高さ分を除く */
+  overflow-y: auto;
 }
