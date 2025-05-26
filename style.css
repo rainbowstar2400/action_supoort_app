@@ -151,6 +151,11 @@ button:active {
   margin: 0.5em 0;
 }
 
+.mood-row select {
+  width: 200px;
+  font-size: 1em;
+}
+
 .preview-button {
   background-color: var(--main-color);
   color: white;
