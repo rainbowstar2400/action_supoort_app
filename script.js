@@ -18,6 +18,7 @@ async function loadBGMData() {
 
 window.addEventListener('DOMContentLoaded', async () => {
   await loadBGMData(); // ← 追加
+  populateMoodOptions();
   const savedColor = localStorage.getItem('theme-color');
   if (savedColor) {
     applyThemeColor(savedColor);
