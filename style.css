@@ -187,4 +187,5 @@ button:active {
 #menu-screen {
   max-height: calc(100vh - 60px); /* タブバーの高さ分を除く */
   overflow-y: auto;
+  padding-bottom: 80px; /* ← タブバー＋αの余白を作る */
 }
