@@ -18,6 +18,7 @@ async function loadBGMData() {
 
 window.addEventListener('DOMContentLoaded', async () => {
   await loadBGMData(); // ← 追加
+  showScreen('home');
   populateMoodOptions();
   const savedColor = localStorage.getItem('theme-color');
   if (savedColor) {
@@ -52,7 +53,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  showScreen('home');
 });
 
 function populateMoodOptions() {
