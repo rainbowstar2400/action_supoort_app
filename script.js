@@ -136,9 +136,8 @@ if (currentAudio) {
   currentAudio.loop = true;
   currentAudio.play();
   // クレジット情報を表示
-document.getElementById("bgm-credit").innerHTML =
-  `<strong>再生中：</strong><br>
-   曲名：${bgmEntry["元タイトル"]}<br>
+  document.getElementById("bgm-credit").innerHTML =
+    `曲名：${bgmEntry["元タイトル"]}<br>
    作者：${bgmEntry["作者"]}<br>
    サイト：<a href="${bgmEntry["URL"]}" target="_blank">${bgmEntry["サイト"]}</a>`;
 
@@ -377,8 +376,7 @@ function previewBGM(selectId) {
   // 表示
   if (entry) {
     document.getElementById("preview-credit").innerHTML =
-      `<strong>試聴中：</strong><br>
-     曲名：${entry["元タイトル"]}<br>
+    `曲名：${entry["元タイトル"]}<br>
      作者：${entry["作者"]}<br>
      サイト：<a href="${entry["URL"]}" target="_blank">${entry["サイト"]}</a>`;
   }

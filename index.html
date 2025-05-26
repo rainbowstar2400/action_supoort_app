@@ -172,10 +172,17 @@
         <p><strong>アイコン：</strong>icon-mono <a href="https://icooon-mono.com/">(URL)</a></p>
 
         <!-- 再生中クレジット表示 -->
-        <div id="bgm-credit" class="credit-box" style="margin-top: 1em;"></div>
-        
-        <!-- 試聴中クレジット表示欄 -->
-        <div id="preview-credit" class="credit-box" style="margin-top: 1em;"></div>
+        <div id="bgm-credit" class="credit-box">
+          <strong>再生中：</strong><br>
+          <span id="bgm-detail"></span>
+        </div>
+
+        <!-- 試聴中クレジット表示 -->
+        <div id="preview-credit" class="credit-box">
+          <strong>試聴中：</strong><br>
+          <span id="preview-detail"></span>
+        </div>
+
       </div>
     </div>
 
