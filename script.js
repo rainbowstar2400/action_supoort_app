@@ -4,7 +4,7 @@ let currentLabel = "";
 let elapsedTime = 0;
 let timerInterval = null;
 let bellPlayed = false;
-
+let originalBGMVolume = null;
 let bgmData = [];
 
 async function loadBGMData() {
@@ -95,16 +95,13 @@ function populateMoodOptions() {
 }
 
 function playBGM(name, label) {
-  
-  // 試聴が再生中なら停止
-  if (previewAudio) {
-    previewAudio.pause();
-    previewAudio = null;
-    previewingId = null;
 
-    // クレジット表示をクリア
-    document.getElementById("preview-credit").innerHTML = "";
-  }
+// BGM再生中なら一時的に音量を下げる
+let originalBGMVolume = null;
+if (currentAudio) {
+  originalBGMVolume = currentAudio.volume;
+  currentAudio.volume = 0.2;
+}
 
   if (currentAudio) {
     currentAudio.pause();
@@ -346,6 +343,11 @@ function previewBGM(selectId) {
       previewAudio.pause();
       previewAudio = null;
       previewingId = null;
+
+      // BGM音量を戻す
+      if (currentAudio && originalBGMVolume !== null) {
+        currentAudio.volume = originalBGMVolume;
+      }
     }
   }, 10000);
 
