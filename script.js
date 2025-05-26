@@ -16,7 +16,6 @@ async function loadBGMData() {
   }
 }
 
-
 window.addEventListener('DOMContentLoaded', async () => {
   await loadBGMData(); // ← 追加
   const savedColor = localStorage.getItem('theme-color');
@@ -54,6 +53,39 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   showScreen('home');
 });
+
+function populateMoodOptions() {
+  const actions = ['帰宅', '食事', '課題', '入浴', '寝る'];
+  const actionIds = {
+    '帰宅': 'select-kitaku',
+    '食事': 'select-shokuji',
+    '課題': 'select-kadai',
+    '入浴': 'select-nyuyoku',
+    '寝る': 'select-neru'
+  };
+
+  actions.forEach(action => {
+    const select = document.getElementById(actionIds[action]);
+    if (!select) return;
+
+    // 該当する気分名だけ抽出
+    const moods = bgmData
+      .filter(item => item["行動名"] === action)
+      .map(item => ({
+        label: item["気分名"],
+        value: item["ファイル名"].replace('.mp3', '') // ID的には従来通り
+      }));
+
+    // 中身をクリアして追加
+    select.innerHTML = '';
+    moods.forEach(mood => {
+      const option = document.createElement('option');
+      option.value = mood.value;
+      option.textContent = mood.label;
+      select.appendChild(option);
+    });
+  });
+}
 
 function playBGM(name, label) {
   if (currentAudio) {
