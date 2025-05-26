@@ -315,6 +315,33 @@ function previewBGM(selectId) {
       previewingId = null;
     }
   }, 10000);
+
+  const moodLabel = document.getElementById(selectId).options[document.getElementById(selectId).selectedIndex].text;
+
+  // 行動名を逆引き
+  const actionMap = {
+    'select-kitaku': '帰宅後のルーティン',
+    'select-shokuji': '食事後の片付け',
+    'select-kadai': '課題後に動く',
+    'select-nyuyoku': '入浴準備',
+    'select-neru': '就寝準備'
+  };
+  const actionName = actionMap[selectId];
+
+  // JSONから該当エントリを取得
+  const entry = bgmData.find(item =>
+    item["行動名"] === actionName && item["気分名"] === moodLabel
+  );
+
+  // 表示
+  if (entry) {
+    document.getElementById("preview-credit").innerHTML =
+      `<strong>試聴中：</strong><br>
+     曲名：${entry["元タイトル"]}<br>
+     作者：${entry["作者"]}<br>
+     サイト：<a href="${entry["URL"]}" target="_blank">${entry["サイト"]}</a>`;
+  }
+
 }
 
 function resetMoodSettings() {

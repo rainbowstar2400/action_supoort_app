@@ -189,3 +189,17 @@ button:active {
   overflow-y: auto;
   padding-bottom: 80px; /* ← タブバー＋αの余白を作る */
 }
+
+.credit-box {
+  background-color: #f3f3f3;
+  padding: 0.8em 1em;
+  border-radius: 8px;
+  font-size: 0.9em;
+  margin-top: 1em;
+  line-height: 1.4em;
+  color: #333;
+}
+.credit-box a {
+  color: #007BFF;
+  text-decoration: underline;
+}
