@@ -136,7 +136,7 @@ if (currentAudio) {
   currentAudio.loop = true;
   currentAudio.play();
   // クレジット情報を表示
-  document.getElementById("bgm-credit").innerHTML =
+  document.getElementById("bgm-detail").innerHTML =
     `曲名：${bgmEntry["元タイトル"]}<br>
    作者：${bgmEntry["作者"]}<br>
    サイト：<a href="${bgmEntry["URL"]}" target="_blank">${bgmEntry["サイト"]}</a>`;
@@ -201,7 +201,7 @@ function completeAction() {
   document.getElementById("elapsed-time").textContent = "";
   document.getElementById("controls").style.display = "none";
   document.getElementById("message").innerHTML = `「${currentLabel}」移行完了！<br>がんばったね。`;
-  document.getElementById("bgm-credit").innerHTML = "";
+  document.getElementById("bgm-detail").innerHTML = "";
 }
 
 function fadeVolume(audio, from, to, duration) {
@@ -348,7 +348,7 @@ function previewBGM(selectId) {
         // クレジット表示も5秒後に消す
         setTimeout(() => {
           if (!previewAudio) {
-            document.getElementById("preview-credit").innerHTML = "";
+            document.getElementById("preview-detail").innerHTML = "";
           }
         }, 5000);
       }, 2000); // ← フェード時間と一致
@@ -375,7 +375,7 @@ function previewBGM(selectId) {
 
   // 表示
   if (entry) {
-    document.getElementById("preview-credit").innerHTML =
+    document.getElementById("preview-detail").innerHTML =
     `曲名：${entry["元タイトル"]}<br>
      作者：${entry["作者"]}<br>
      サイト：<a href="${entry["URL"]}" target="_blank">${entry["サイト"]}</a>`;
