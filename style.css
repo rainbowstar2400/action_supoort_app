@@ -109,7 +109,12 @@ button:active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.1s ease;
+}
+
+.accordion-toggle:active {
+  transform: scale(0.97);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .accordion-toggle .arrow {
