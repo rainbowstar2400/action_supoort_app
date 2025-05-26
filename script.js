@@ -127,6 +127,12 @@ function playBGM(name, label) {
 
   currentAudio.loop = true;
   currentAudio.play();
+  // クレジット情報を表示
+document.getElementById("bgm-credit").innerHTML =
+  `<strong>再生中：</strong><br>
+   曲名：${bgmEntry["元タイトル"]}<br>
+   作者：${bgmEntry["作者"]}<br>
+   サイト：<a href="${bgmEntry["URL"]}" target="_blank">${bgmEntry["サイト"]}</a>`;
 
   isPaused = false;
   currentLabel = label;
@@ -188,6 +194,7 @@ function completeAction() {
   document.getElementById("elapsed-time").textContent = "";
   document.getElementById("controls").style.display = "none";
   document.getElementById("message").innerHTML = `「${currentLabel}」移行完了！<br>がんばったね。`;
+  document.getElementById("bgm-credit").innerHTML = "";
 }
 
 function fadeVolume(audio, from, to, duration) {
