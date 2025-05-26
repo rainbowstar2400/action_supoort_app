@@ -300,19 +300,11 @@ let previewAudio = null;
 let previewingId = null;
 
 function previewBGM(selectId) {
-  // BGMが再生中なら停止
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-    currentAudio = null;
 
-    // 表示もリセット（必要に応じて）
-    document.getElementById("now-playing").textContent = "";
-    document.getElementById("elapsed-time").textContent = "";
-    document.getElementById("controls").style.display = "none";
-    document.getElementById("message").textContent = "";
-    document.getElementById("bgm-credit").innerHTML = "";
-    clearInterval(timerInterval);
+  // BGMが再生中なら一時的に音量を下げる
+  if (currentAudio && !previewAudio) {
+    originalBGMVolume = currentAudio.volume;
+    currentAudio.volume = 0.2;
   }
 
   const selectedValue = document.getElementById(selectId).value;
