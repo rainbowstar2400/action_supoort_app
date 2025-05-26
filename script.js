@@ -300,6 +300,8 @@ let previewingId = null;
 
 function previewBGM(selectId) {
 
+  const button = document.querySelector(`button[onclick="previewBGM('${selectId}')"]`);
+
   // BGMが再生中なら一時的に音量を下げる
   if (currentAudio && !previewAudio) {
     originalBGMVolume = currentAudio.volume;
@@ -322,6 +324,10 @@ function previewBGM(selectId) {
 
   // 試聴クレジットも削除（任意）
   document.getElementById("preview-detail").innerHTML = "";
+  originalBGMVolume = null;
+
+  // 表示を元に戻す
+  if (button) button.textContent = "▶ 試聴"
     return;
   }
 
@@ -334,6 +340,7 @@ function previewBGM(selectId) {
   previewAudio = new Audio(previewFile);
   previewAudio.volume = 0.8;
   previewAudio.play();
+  if (button) button.textContent = "■ 停止";
   previewingId = selectId;
 
   // 10秒後に自動停止
@@ -357,6 +364,7 @@ function previewBGM(selectId) {
         setTimeout(() => {
           if (!previewAudio) {
             document.getElementById("preview-detail").innerHTML = "";
+            if (button) button.textContent = "▶ 試聴"; // ← 追加
           }
         }, 5000);
       }, 2000); // ← フェード時間と一致
