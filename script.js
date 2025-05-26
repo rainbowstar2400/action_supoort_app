@@ -314,6 +314,14 @@ function previewBGM(selectId) {
     previewAudio.pause();
     previewAudio = null;
     previewingId = null;
+
+  // BGMがあれば音量を戻す
+  if (currentAudio && originalBGMVolume !== null) {
+    currentAudio.volume = originalBGMVolume;
+  }
+
+  // 試聴クレジットも削除（任意）
+  document.getElementById("preview-detail").innerHTML = "";
     return;
   }
 
