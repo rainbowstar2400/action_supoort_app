@@ -154,6 +154,7 @@ button:active {
 .mood-row select {
   width: 200px;
   font-size: 1em;
+  box-sizing: border-box;
 }
 
 .preview-button {
