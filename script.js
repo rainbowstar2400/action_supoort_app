@@ -56,13 +56,19 @@ window.addEventListener('DOMContentLoaded', async () => {
 });
 
 function populateMoodOptions() {
-  const actions = ['帰宅', '食事', '課題', '入浴', '寝る'];
+  const actions = [
+    '帰宅後のルーティン',
+    '食事後の片付け',
+    '課題後に動く',
+    '入浴準備',
+    '就寝準備'
+  ];
   const actionIds = {
-    '帰宅': 'select-kitaku',
-    '食事': 'select-shokuji',
-    '課題': 'select-kadai',
-    '入浴': 'select-nyuyoku',
-    '寝る': 'select-neru'
+    '帰宅後のルーティン': 'select-kitaku',
+    '食事後の片付け': 'select-shokuji',
+    '課題後に動く': 'select-kadai',
+    '入浴準備': 'select-nyuyoku',
+    '就寝準備': 'select-neru'
   };
 
   actions.forEach(action => {
