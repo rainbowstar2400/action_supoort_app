@@ -128,7 +128,7 @@ button:active {
 
 .accordion-content {
   background: #fafafa;
-  padding: 1em 2em; /* ← 横にゆとりを追加 */
+  padding: 1em 0.5em; /* ← 横にゆとりを追加 */
   margin-top: 0.5em;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
