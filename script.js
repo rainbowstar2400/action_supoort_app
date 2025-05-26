@@ -340,8 +340,16 @@ function previewBGM(selectId) {
       if (currentAudio && originalBGMVolume !== null) {
         currentAudio.volume = originalBGMVolume;
       }
+      // 🔽 5秒後にクレジット表示を消す
+      setTimeout(() => {
+        // previewAudio がまだ再生されていないことを確認して消去
+        if (!previewAudio) {
+          document.getElementById("preview-credit").innerHTML = "";
+        }
+      }, 5000); // ← 5000ミリ秒 = 5秒
     }
-  }, 10000);
+  }, 10000); // ← 試聴音は10秒で自動終了
+
 
   const moodLabel = document.getElementById(selectId).options[document.getElementById(selectId).selectedIndex].text;
 
