@@ -304,7 +304,7 @@ function previewBGM(selectId) {
   // BGMが再生中なら一時的に音量を下げる
   if (currentAudio && !previewAudio) {
     originalBGMVolume = currentAudio.volume;
-    currentAudio.volume = 0.2;
+    currentAudio.volume = 0;
   }
 
   const selectedValue = document.getElementById(selectId).value;
@@ -332,23 +332,29 @@ function previewBGM(selectId) {
   // 10秒後に自動停止
   setTimeout(() => {
     if (previewingId === selectId && previewAudio) {
-      previewAudio.pause();
-      previewAudio = null;
-      previewingId = null;
+      // フェードアウト実行
+      fadeVolume(previewAudio, previewAudio.volume, 0, 2000); // 2秒かけてフェード
 
-      // BGM音量を戻す
-      if (currentAudio && originalBGMVolume !== null) {
-        currentAudio.volume = originalBGMVolume;
-      }
-      // 🔽 5秒後にクレジット表示を消す
+      // 音量が下がりきった後に停止処理
       setTimeout(() => {
-        // previewAudio がまだ再生されていないことを確認して消去
-        if (!previewAudio) {
-          document.getElementById("preview-credit").innerHTML = "";
+        previewAudio.pause();
+        previewAudio = null;
+        previewingId = null;
+
+        // BGM音量を戻す
+        if (currentAudio && originalBGMVolume !== null) {
+          currentAudio.volume = originalBGMVolume;
         }
-      }, 5000); // ← 5000ミリ秒 = 5秒
+
+        // クレジット表示も5秒後に消す
+        setTimeout(() => {
+          if (!previewAudio) {
+            document.getElementById("preview-credit").innerHTML = "";
+          }
+        }, 5000);
+      }, 2000); // ← フェード時間と一致
     }
-  }, 10000); // ← 試聴音は10秒で自動終了
+  }, 10000); // 試聴開始から10秒後にフェード開始
 
 
   const moodLabel = document.getElementById(selectId).options[document.getElementById(selectId).selectedIndex].text;
