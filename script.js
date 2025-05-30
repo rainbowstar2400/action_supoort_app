@@ -317,17 +317,19 @@ function previewBGM(selectId) {
     previewAudio = null;
     previewingId = null;
 
-  // BGMがあれば音量を戻す
-  if (currentAudio && originalBGMVolume !== null) {
-    currentAudio.volume = originalBGMVolume;
-  }
+    // BGMがあれば音量を戻す
+    if (currentAudio && originalBGMVolume !== null) {
+      currentAudio.volume = originalBGMVolume;
+    }
 
-  // 試聴クレジットも削除（任意）
-  document.getElementById("preview-detail").innerHTML = "";
-  originalBGMVolume = null;
+    // 試聴クレジットも削除（任意）
+    document.getElementById("preview-detail").innerHTML = "";
+    originalBGMVolume = null;
 
-  // 表示を元に戻す
-  if (button) button.textContent = "▶ 試聴"
+    // 表示を元に戻す
+    if (button) {
+      button.textContent = "▶ 試聴"
+    }
     return;
   }
 
