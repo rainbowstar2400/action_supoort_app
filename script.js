@@ -131,7 +131,7 @@ if (currentAudio) {
   }
   
   const fileName = bgmEntry["ファイル名"];
-  currentAudio = new Audio(`assets/${fileName}`);
+  currentAudio = new Audio(`assets/bgm/${fileName}`);
 
   currentAudio.loop = true;
   currentAudio.play();
@@ -309,7 +309,7 @@ function previewBGM(selectId) {
   }
 
   const selectedValue = document.getElementById(selectId).value;
-  const previewFile = `assets/${selectedValue}.mp3`;
+  const previewFile = `assets/bgm/${selectedValue}.mp3`;
 
   // 同じボタンが押されたら停止する
   if (previewingId === selectId && previewAudio) {
